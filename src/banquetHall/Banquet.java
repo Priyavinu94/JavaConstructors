@@ -1,10 +1,9 @@
 /* Program to get complete bill at a Banquet hall by creating a class named Banquet
  * Class Attributes : Base cost for booking, Cost of Food, Taxes on Food, Cost of Beverages, Taxes on Beverages, Tips
  * Assuming : Tax on food and beverages- 13%, tax on the total base cost- 18% : initialized by parameterized constructor
- *            Food and beverages are optional services, Tip is also optional ($0.0 is a valid entry for this field)
+ *            Tip is optional ($0.0 is a valid entry for this field)
  *            Minimum booking cost of the hall for any event is $100.
  *            Hall Capacity is --  Minimum 20 people, Maximum 400 people.
- * Adding Method areEntriesValid() : Checks if Booking Cost and No of guests inputs, displays warning if not valid.
  * Method calculateBaseCost(): Calculating total base cost, assuming food cost includes tax, beverage cost includes 
  *                             tax and tips, all 4 input taken from main class and set value.
  * Method calculateTax(): Calculating tax on total base cost
@@ -18,12 +17,12 @@ public class Banquet {
 
 	double baseBookingCost;
 	double foodCost;
-	double bevarageCost;
+	double beverageCost;
 	double tip;
 
 	// attributes initializing by invoking constructor
 	double foodTax;
-	double bevarageTax;
+	double beverageTax;
 	double taxApplied;
 
 	public Banquet() {
@@ -37,9 +36,9 @@ public class Banquet {
 		
 	}
 
-	public Banquet(double foodTax, double bevarageTax, double taxApplied) {
+	public Banquet(double foodTax, double beverageTax, double taxApplied) {
 		this.foodTax = foodTax;
-		this.bevarageTax = bevarageTax;
+		this.beverageTax = beverageTax;
 		this.taxApplied = taxApplied;
 	}
 
@@ -51,8 +50,8 @@ public class Banquet {
 		this.foodCost = foodCost;
 	}
 
-	public void setBevarageCost(double bevarageCost) {
-		this.bevarageCost = bevarageCost;
+	public void setBeverageCost(double bevarageCost) {
+		this.beverageCost = bevarageCost;
 	}
 
 	public double getBaseBookingCost() {
@@ -63,26 +62,15 @@ public class Banquet {
 		return foodCost;
 	}
 
-	public double getBevarageCost() {
-		return bevarageCost;
+	public double getBeverageCost() {
+		return beverageCost;
 	}
 
-	boolean areEntriesValid(int guestCount) {
-		if (baseBookingCost < 100) {
-			System.out.println("Invalid booking Cost. Minimum booking cost for any event is $100.");
-		} else if (guestCount < 20 || guestCount > 400) {
-			System.out.println("Invalid Entry for No of Guests. Hall Capacity:  Minimum 20 people, Maximum 400 people");
-		} else {
-			return true;
-		}
-		return false;
-	}
-
-	double calculateBaseCost(double baseBookingCost, double foodCost, double bevarageCost) {
+	double calculateBaseCost(double baseBookingCost, double foodCost, double beverageCost) {
 
 		this.foodCost += foodCost * foodTax;
-		this.bevarageCost += (bevarageCost * bevarageTax) + tip;
-		double totalBaseCost = baseBookingCost + this.foodCost + this.bevarageCost;
+		this.beverageCost += (beverageCost * beverageTax) + tip;
+		double totalBaseCost = baseBookingCost + this.foodCost + this.beverageCost;
 		return totalBaseCost;
 	}
 
@@ -117,7 +105,7 @@ public class Banquet {
 		System.out.println("Base Booking Cost of the Hall :  $" + baseBookingCost);
 		System.out.println("   Cost of Food(includes tax) :  $" + foodCost);
 		System.out.println(" 	      Beverage Cost ");
-		System.out.println("      (includes tax and tips) :  $" + bevarageCost);
+		System.out.println("      (includes tax and tips) :  $" + beverageCost);
 		System.out.println("-----------------------------   ------------");
 		System.out.println("              Total Base Cost :  $" + totalBaseCost);
 		System.out.println("             Tax on Base Cost :  $" + calculateTax(totalBaseCost));
