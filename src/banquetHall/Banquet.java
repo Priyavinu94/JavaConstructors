@@ -24,7 +24,7 @@ public class Banquet {
 	double foodTax;
 	double beverageTax;
 	double taxApplied;
-
+	
 	public Banquet() {
 		System.out.println("Welcome !!!");
 		System.out.println("Please note the basic requirements for any booking ");
@@ -33,7 +33,7 @@ public class Banquet {
 		System.out.println("  3. Hall Capacity:  Minimum 20 people, Maximum 400 people");
 		System.out.println("\nEnter the following details based on your requirements");
 		System.out.println("(For optional services, you can Enter $0.0, if you don't need the service)\n ");
-		
+
 	}
 
 	public Banquet(double foodTax, double beverageTax, double taxApplied) {
@@ -67,20 +67,21 @@ public class Banquet {
 	}
 
 	double calculateBaseCost(double baseBookingCost, double foodCost, double beverageCost) {
-
 		this.foodCost += foodCost * foodTax;
 		this.beverageCost += (beverageCost * beverageTax) + tip;
 		double totalBaseCost = baseBookingCost + this.foodCost + this.beverageCost;
 		return totalBaseCost;
 	}
 
-	double calculateTax(double totalBaseCost) {
-
-		double totalTax = taxApplied * totalBaseCost;
-		return totalTax;
+	private double calculateTax(double totalBaseCost) {
+		return taxApplied * totalBaseCost;
 	}
-
-	double calculateCess(int guestCount, double totalBaseCost) {
+	
+	double getTotalTax(double totalBaseCost) {
+		return calculateTax(totalBaseCost);
+	}
+	
+	private double calculateCess(int guestCount, double totalBaseCost) {
 		if (guestCount <= 40) {
 			return (4.0 / 100 * totalBaseCost);
 		} else if (guestCount <= 80) {
@@ -91,13 +92,15 @@ public class Banquet {
 			return (12.5 / 100 * totalBaseCost);
 		}
 	}
-
-	double calculateTheTotalCost(double totalBaseCost, double totalTax, double ServiceCess) {
-		// totalBaseCost = calculateBaseCost(baseBookingCost, foodCost, bevarageCost);
-		// totalTax = calculateTax(totalBaseCost)
-		// ServiceCess = calculateCess(guestCount, totalBaseCost)
-		double totalCost = totalBaseCost + totalTax + ServiceCess;
-		return totalCost;
+	
+	double getServiceCess(int guestCount, double totalBaseCost) {
+		return calculateCess(guestCount, totalBaseCost);
+	}
+	
+	double calculateTheTotalCost(double totalBaseCost, double totalTax, double serviceCess, int guestCount) {
+		totalTax = calculateTax(totalBaseCost);
+		serviceCess = calculateCess(guestCount, totalBaseCost);
+		return totalBaseCost + totalTax + serviceCess;
 	}
 
 	void printInvoice(int guestCount, double totalBaseCost) {
