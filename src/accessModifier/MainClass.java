@@ -32,16 +32,12 @@ public class MainClass {
 			customer1.setPhoneNo(sc.nextLong());
 
 			System.out.println(phNoBeforeChange == customer1.getPhoneNo() ? "Invalid phone no entered"
-					: "Updated phone no is  : " + customer1.getPhoneNo());
-
-		} else if (response.equals("No")) {
-
-			System.out.println("You selected not to update phone no. Thank you");
+					: "Your phone no is updated to : " + customer1.getPhoneNo());
 
 		} else {
-
-			System.out.println("Invalid entry. Please Enter 'Yes' or 'No' ");
-
+			
+			System.out.println(response.equals("No") ? "You selected not to update phone no. Thank you"
+					: "Invalid entry. Please Enter 'Yes' or 'No' ");
 		}
 
 	}
