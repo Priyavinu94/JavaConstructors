@@ -29,7 +29,7 @@ public class InvoiceBanquet {
 					System.out.print("Enter the tip amount               : 	$");
 					invoice.tip = sc.nextDouble();
 
-					if (invoice.tip > 0.20 * invoice.baseBookingCost) {
+					if (invoice.tip <= 0.20 * invoice.baseBookingCost) {
 						System.out.print("Enter the total no. of Guests      : 	#");
 						int noOfGuests = sc.nextInt(); // input no. of guests for calculating Service Cess
 
