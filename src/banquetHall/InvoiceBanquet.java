@@ -15,9 +15,9 @@ public class InvoiceBanquet {
 		// beverage tax, tax percentage
 
 		System.out.print("Enter the booking cost of the hall : 	$");
-		invoice.setBaseBookingCost(sc.nextDouble()); // set base booking cost
+		invoice.baseBookingCost = sc.nextDouble(); // set base booking cost
 
-		if (invoice.getBaseBookingCost() > 0.0) {
+		if (invoice.baseBookingCost >= 100.0) {
 			System.out.print("Enter the food Cost                : 	$");
 			invoice.setFoodCost(sc.nextDouble()); // set food cost before taxes
 
@@ -28,19 +28,23 @@ public class InvoiceBanquet {
 				if (invoice.getBeverageCost() > 0.0) {
 					System.out.print("Enter the tip amount               : 	$");
 					invoice.tip = sc.nextDouble();
-					System.out.print("Enter the total no. of Guests      : 	#");
-					int noOfGuests = sc.nextInt(); // input no. of guests for calculating Service Cess
 
-					if (noOfGuests >= 20 && noOfGuests <= 400) {
+					if (invoice.tip > 0.20 * invoice.baseBookingCost) {
+						System.out.print("Enter the total no. of Guests      : 	#");
+						int noOfGuests = sc.nextInt(); // input no. of guests for calculating Service Cess
 
-						double totalBaseCost = invoice.calculateBaseCost(invoice.getBaseBookingCost(),
-								invoice.getFoodCost(), invoice.getBeverageCost());
-						double totalCost = invoice.calculateTheTotalCost(totalBaseCost, invoice.getTotalTax(totalBaseCost),
-								invoice.getServiceCess(noOfGuests, totalBaseCost), noOfGuests);
+						if (noOfGuests >= 20 && noOfGuests <= 400) {
 
-						invoice.printInvoice(noOfGuests, totalBaseCost); // method to print the detailed Invoice
-						System.out.println("               Invoice Amount :  $" + totalCost);
+							double totalBaseCost = invoice.calculateBaseCost(invoice.baseBookingCost,
+									invoice.getFoodCost(), invoice.getBeverageCost());
+							double totalCost = invoice.calculateTheTotalCost(totalBaseCost, noOfGuests);
 
+							invoice.printInvoice(noOfGuests, totalBaseCost); // method to print the detailed Invoice
+							System.out.println("               Invoice Amount :  $" + totalCost);
+							
+						} else {
+							System.out.println("Tip amount exceeded maximum, Please see the instructions.");
+						}
 					} else {
 						System.out.println("Invalid entry for No. of guests. Please see the instructions.");
 					}
